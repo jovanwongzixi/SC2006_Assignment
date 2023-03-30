@@ -1,18 +1,5 @@
 package com.goodstart.flatsdata.services;
 
-/*
- * Amenities to search
- * hawker centres
- * carpark (all hdb estates should have carpark?)
- * school
- * fitness
- * shopping (shopping_mall)
- * supermarket
- * public transport (train/transit/subway_station, bus_station)
- *
- * requires geocoding api to get lat lng before calling nearby search
- */
-
 import com.goodstart.flatsdata.entities.Amenity;
 import com.goodstart.flatsdata.entities.AmenityLocation;
 import com.goodstart.flatsdata.entities.NearbyAmenities;
@@ -37,6 +24,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
+/**
+ * Maps service to collect data from Google Maps API to MongoDB. Used only for development purposes.
+ * @author Jovan
+ */
 @Service
 public class MapsService {
     private final AmenitiesLocationRepository amenitiesLocationRepository;
@@ -48,6 +39,11 @@ public class MapsService {
         this.geoApiContext = geoApiContext;
     }
 
+    /**
+     * Add nearby amenities to database based on town value
+     * @param town Name of Town
+     * @return True when logic completed
+     */
     @SneakyThrows
     public Boolean addNearbyAmenitiesSingleTown(String town){
         List<Resale> resalesFromTown = template.find(new Query(Criteria.where("town").is(town.toUpperCase())), Resale.class);
@@ -95,6 +91,11 @@ public class MapsService {
         return true;
     }
 
+    /**
+     * Add nearby amenities for single listing
+     * @param address Address of single listing
+     * @return Nearby amenities for the listing
+     */
     @SneakyThrows
     public NearbyAmenities addNearbyAmenitiesSingleListing(String address){
         GeocodingResult[] geocodingResults = GeocodingApi.geocode(geoApiContext, address).await();
@@ -140,6 +141,12 @@ public class MapsService {
 //                .await();
         return nearbyAmenities;
     }
+
+    /**
+     * Add coordinate data based on single listing
+     * @param address Address of single listing
+     * @return Coordinate of single listing
+     */
     @SneakyThrows
     public LatLng addLatLngSingleFlat(String address){
         GeocodingResult[] geocodingResults = GeocodingApi.geocode(geoApiContext, address).await();
@@ -152,6 +159,10 @@ public class MapsService {
         return latLng;
     }
 
+    /**
+     * Add coordinated for all resale listings in database
+     * @return True upon completion
+     */
     @SneakyThrows
     public Boolean addLatLngAll(){
         // if resale flats with no coordinates information
@@ -170,7 +181,10 @@ public class MapsService {
         }
         return true;
     }
-    // shutdown the geoApiContext when application is shutdown
+
+    /** 
+     * Shutdown the geoApiContext when application is shutdown
+     */
     @PreDestroy
     public void preDestroy(){
         geoApiContext.shutdown();

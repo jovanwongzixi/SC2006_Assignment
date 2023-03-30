@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.Map;
 import java.time.Year;
 
+/**
+ * Resale service to process logic of querying for resale
+ */
 @Service
 public class ResaleService {
     private final SearchParamsService searchParamsService;
@@ -24,26 +27,38 @@ public class ResaleService {
         this.resaleRepo = resaleRepo;
         this.mongoTemplate = mongoTemplate;
     }
-    public List<Resale> firstTwentyResale(Integer pageOffset){
-        PageRequest pageRequest = PageRequest.of(pageOffset,20);
-        return mongoTemplate.find(new Query().with(pageRequest), Resale.class);
-    }
-    public List<Resale> locationList(){
-//        sample nearby search code, location types found in text file. type&keyword may clash
-//        GeoApiContext need to intialise once at the start of class only
-//        try (GeoApiContext context = new GeoApiContext.Builder().apiKey("").build()) {
-//            PlacesApi.nearbySearchQuery(context, new LatLng()).radius(5000).type("supermarket|");
-//        } catch(IOException e) {
-//            e.printStackTrace();
-//        }
-        Pageable pageable = PageRequest.of(0,10);
-        return resaleRepo.findTowns(pageable);
-    }
+    // public List<Resale> firstTwentyResale(Integer pageOffset){
+    //     PageRequest pageRequest = PageRequest.of(pageOffset,20);
+    //     return mongoTemplate.find(new Query().with(pageRequest), Resale.class);
+    // }
+//     public List<Resale> locationList(){
+// //        sample nearby search code, location types found in text file. type&keyword may clash
+// //        GeoApiContext need to intialise once at the start of class only
+// //        try (GeoApiContext context = new GeoApiContext.Builder().apiKey("").build()) {
+// //            PlacesApi.nearbySearchQuery(context, new LatLng()).radius(5000).type("supermarket|");
+// //        } catch(IOException e) {
+// //            e.printStackTrace();
+// //        }
+//         Pageable pageable = PageRequest.of(0,10);
+//         return resaleRepo.findTowns(pageable);
+//     }
 
-    public List<Resale> selectedTown(String town){
-        return resaleRepo.findByTown(town.toUpperCase());
-    }
+//     public List<Resale> selectedTown(String town){
+//         return resaleRepo.findByTown(town.toUpperCase());
+//     }
 
+    /**
+     * Query logic to get list of resale
+     * @param town Name of town, optional
+     * @param min_price Mininum price of flat, optional
+     * @param max_price Maximum price of flat, optional
+     * @param flat_types Types of flats (eg. 2 room, executive), optional
+     * @param amenities Nearby amenities, optional
+     * @param remaining_lease Number of years of lease left, optional
+     * @param page Page number for pagination, default value set to zero
+     * @param size Number of results per page, default value set using pageSize
+     * @return List of resale based on query
+     */
     public List<Resale> multipleQueries(
             String town, Integer min_price, Integer max_price, String flat_types, String amenities, Integer remaining_lease, Integer page, Integer size
     ){
@@ -54,6 +69,17 @@ public class ResaleService {
         return mongoTemplate.find(query, Resale.class);
     }
 
+    /**
+     * Query logic to get number of results for pagination
+     * @param town Name of town, optional
+     * @param min_price Mininum price of flat, optional
+     * @param max_price Maximum price of flat, optional
+     * @param flat_types Types of flats (eg. 2 room, executive), optional
+     * @param amenities Nearby amenities, optional
+     * @param remaining_lease Number of years of lease left, optional
+     * @param size Number of results per page, default value set using pageSize
+     * @return Number of results and page size
+     */
     public Map<String, Long> queryResultSize(String town, Integer min_price, Integer max_price, String flat_types, String amenities, Integer remaining_lease, Long size){
         Query query = this.processQuery(town, min_price, max_price, flat_types, amenities, remaining_lease);
         Map<String, Long> resultMap = new HashMap<String, Long>();

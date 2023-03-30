@@ -21,8 +21,3 @@ public class SearchParams {
     private List<Integer> price_range;
     private List<String> flat_types;
 }
-
-//public record SearchParams(@Id ObjectId id,
-//                           List<String> towns,
-//                           List<String> amenities
-//){}

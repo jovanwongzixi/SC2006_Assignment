@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Controller to create REST APIs for search parameter values of form in frontend page
+ * @author Jovan
+ */
 @RestController
 @RequestMapping("api/flat_data/search_params")
 public class SearchParamsController {
@@ -23,10 +27,14 @@ public class SearchParamsController {
         this.registry = observationRegistry;
     }
 
-    @GetMapping("/towns")
-    public ResponseEntity<List<String>> getAllTowns(){
-        return new ResponseEntity<>(service.allTowns(), HttpStatus.OK);
-    }
+    // @GetMapping("/towns")
+    // public ResponseEntity<List<String>> getAllTowns(){
+    //     return new ResponseEntity<>(service.allTowns(), HttpStatus.OK);
+    // }
+    /**
+     * GET request to get all search parameter values
+     * @return Values of search parameters
+     */
     @GetMapping
     public ResponseEntity<SearchParams> getAllSearchParams(){
         return Observation

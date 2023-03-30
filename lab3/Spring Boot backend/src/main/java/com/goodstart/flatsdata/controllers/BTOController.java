@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * BTO RestAPI Controller to handle BTO data from MongoDB
+ * @author Jovan
+ */
 @RestController
 @RequestMapping("api/flat_data/bto")
 public class BTOController {
@@ -18,7 +22,10 @@ public class BTOController {
     public BTOController(BTOService btoService){
         this.btoService = btoService;
     }
-
+    /**
+     * 
+     * @return all BTO listings in database
+     */
     @GetMapping("/")
     public ResponseEntity<List<BTO>> getAllBTO(){
         return new ResponseEntity<>(btoService.findAllBTO(), HttpStatus.OK);

@@ -2,9 +2,24 @@ package com.goodstart.flatsdata.services;
 
 import org.springframework.stereotype.Service;
 
+/**
+ * Calculator service for logic to calculate affordability
+ * @author Jovan
+ */
 @Service
 public class CalculatorService {
-    
+    /**
+     * @implSpec Using 3-3-5 rule to calculate affordability based on https://dollarsandsense.sg/3-3-5-rule-of-buying-an-hdb-flat-how-much-can-singaporeans-really-afford/
+     * @param budget Budget (cash) available on hand
+     * @param cpfAmount Current value of CPF
+     * @param hdbCost Cost of the BTO in S$
+     * @param loanAmount Total amount loaned from HDB/Bank
+     * @param annualInterest Annual Interest rate for loan repayment
+     * @param repaymentPeriod Time period to fully repay loan
+     * @param fixedIncome Monthly income value
+     * @param otherIncome Additional income value
+     * @return Afforability True/False
+     */
     public Boolean calculateAffordability(
         Double budget,
         Double cpfAmount,
