@@ -1,0 +1,15 @@
+/* .navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 20px;
+    background-color: red;    '__Rozha_One_77c4c0';
+} */
+
+.logo{
+    /* font-family: var(--rozha-one); */
+    font-size: 48px;
+    color: #E13737;
+    margin-left: 2rem;
+    text-decoration: none;
+}

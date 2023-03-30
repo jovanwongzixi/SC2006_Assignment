@@ -1,0 +1,58 @@
+.maindiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+.photo{
+    image-rendering: url('https://s3-ap-southeast-1.amazonaws.com/static.streetsine/HDB%20Block%20Photos/461001/L/8812.jpg');;
+    background-repeat: no-repeat;
+    width: 10px;
+    height: 20px;
+}
+.listingsdiv{
+    height: 100%; 
+    background-color: #FFF; 
+    width: 70%;
+    border-radius: 10px;
+    margin-top: 10px;
+    border: 1px solid red;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.details{
+    height: 50%; 
+    background-color: #F89D5B; 
+    width: 40%;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-top: 10px;    
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.amenities{
+    height: 20%; 
+    background-color: #F89D5B; 
+    width: 40%;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+    padding-left: 10px;     
+    padding-top: 10px;
+}
+
+.bishan{
+    image-rendering: url('https://www.hdb.gov.sg/-/media/HDBContent/Images/CCG/our-towns-bishan-4.ashx');;
+    background-repeat: no-repeat;
+    width: 10px;
+    height: 20px;
+}
+
+.displayphoto{
+    display: flex;
+    width:200px;
+    height:200;
+
+}
