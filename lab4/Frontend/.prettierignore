@@ -1,0 +1,9 @@
+node_modules
+package.json
+.env
+README.md
+jsconfig.json
+/.next/
+/out/
+public
+yarn.lock

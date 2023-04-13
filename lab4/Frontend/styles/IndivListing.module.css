@@ -1,0 +1,13 @@
+.indivlisting {
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+    width: 100%;
+}
+
+.indivlisting:hover {
+    cursor: pointer;
+}
